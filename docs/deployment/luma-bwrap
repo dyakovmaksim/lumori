@@ -1,0 +1,6 @@
+# Allow user namespaces only for Luma's private sandbox launcher.
+abi <abi/4.0>,
+include <tunables/global>
+profile luma-bwrap /opt/luma-codex/bin/bwrap flags=(unconfined) {
+  userns,
+}

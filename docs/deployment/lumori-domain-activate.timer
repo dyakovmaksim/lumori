@@ -1,0 +1,8 @@
+[Unit]
+Description=Check Lumori DNS until HTTPS activation succeeds
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Unit=lumori-domain-activate.service
+[Install]
+WantedBy=timers.target

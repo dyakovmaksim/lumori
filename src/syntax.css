@@ -1,0 +1,57 @@
+.hljs {
+  color: var(--text);
+}
+.hljs-comment,
+.hljs-quote {
+  color: #8b957f;
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: #997db5;
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: #789650;
+}
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet {
+  color: #b28b59;
+}
+.hljs-title,
+.hljs-section,
+.hljs-name {
+  color: #6c94a8;
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-variable,
+.hljs-template-variable {
+  color: #b28b59;
+}
+.hljs-deletion {
+  color: #c27d76;
+}
+.hljs-built_in {
+  color: #779e93;
+}
+.hljs-meta {
+  color: #99977e;
+}
+[data-theme='dark'] .hljs-string {
+  color: #b3cb8b;
+}
+[data-theme='dark'] .hljs-keyword {
+  color: #c4a4de;
+}
+[data-theme='dark'] .hljs-title {
+  color: #9bc4d8;
+}
+[data-theme='dark'] .hljs-number,
+[data-theme='dark'] .hljs-attr {
+  color: #dabb8f;
+}

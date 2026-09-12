@@ -1,0 +1,26 @@
+[Unit]
+Description=Codex App Server for Luma
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=luma-codex
+Group=luma-workspace
+SupplementaryGroups=luma-codex
+WorkingDirectory=/var/lib/luma-workspaces
+Environment=HOME=/var/lib/luma-codex
+Environment=CODEX_HOME=/var/lib/luma-codex
+ExecStart=/usr/bin/codex app-server --listen ws://127.0.0.1:8091 --ws-auth capability-token --ws-token-file /etc/luma-bridge.token
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/luma-codex /var/lib/luma-workspaces
+InaccessiblePaths=/var/lib/luma
+UMask=0007
+
+[Install]
+WantedBy=multi-user.target

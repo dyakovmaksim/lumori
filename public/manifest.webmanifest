@@ -1,0 +1,16 @@
+{
+  "id": "/",
+  "name": "Lumori",
+  "short_name": "Lumori",
+  "description": "Личное пространство для учёбы и повседневных задач",
+  "lang": "ru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#171717",
+  "theme_color": "#171717",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

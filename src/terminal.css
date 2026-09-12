@@ -1,0 +1,267 @@
+.vps-dialog {
+  width: min(1120px, calc(100% - 32px));
+  height: min(860px, calc(var(--app-height, 100dvh) - 32px));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 1px solid var(--glass-edge);
+  border-radius: 24px;
+  background: var(--solid);
+  color: var(--text);
+  overflow: hidden;
+}
+.vps-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.vps-dialog::backdrop {
+  background: #0009;
+  backdrop-filter: blur(12px);
+}
+.vps-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+  gap: 14px;
+}
+.vps-header > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.vps-header > div > div {
+  min-width: 0;
+}
+.vps-header h2 {
+  font-size: 17px;
+  margin: 0;
+}
+.vps-header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vps-connect {
+  width: min(490px, 100%);
+  margin: auto;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  overflow: auto;
+  min-height: 0;
+}
+.vps-intro h3 {
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  margin: 0 0 9px;
+}
+.vps-intro p,
+.vps-note {
+  color: var(--secondary);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+}
+.vps-connect label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  min-width: 0;
+}
+.vps-connect input,
+.vps-connect textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--hover);
+  color: var(--text);
+  min-width: 0;
+  font-size: 16px;
+}
+.vps-connect textarea {
+  resize: vertical;
+}
+.vps-address {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 85px;
+  gap: 12px;
+}
+.vps-auth {
+  display: flex;
+  padding: 4px;
+  border-radius: 13px;
+  background: var(--hover);
+}
+.vps-auth button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.vps-auth [aria-pressed='true'] {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+.vps-connect .vps-key-file input {
+  font-size: 12px;
+}
+.vps-note {
+  font-size: 11px;
+}
+.vps-session {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.vps-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 15px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vps-toolbar > div {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.vps-toolbar button {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: var(--hover);
+  font-size: 12px;
+}
+.vps-status {
+  font-size: 11px;
+  color: var(--secondary);
+}
+.vps-status.is-ready {
+  color: var(--accent-strong);
+}
+.vps-screen {
+  flex: 1;
+  min-height: 60px;
+  min-width: 0;
+  background: #171717;
+  padding: 10px 8px;
+  overflow: hidden;
+}
+.vps-screen .xterm {
+  height: 100%;
+}
+.vps-verify {
+  margin: 8px 16px;
+  padding: 15px;
+  background: var(--accent-soft);
+  border-radius: 14px;
+  font-size: 13px;
+  overflow: auto;
+  max-height: 45%;
+}
+.vps-verify p {
+  font-size: 12px;
+}
+.vps-verify code {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  margin: 12px 0;
+}
+.vps-verify > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.vps-error {
+  margin: 5px 15px 10px;
+  color: var(--danger);
+  font-size: 12px;
+}
+.vps-input-area {
+  padding: 8px 12px 12px;
+  border-top: 1px solid var(--line);
+}
+.vps-keys {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 7px;
+}
+.vps-keys button {
+  flex-shrink: 0;
+  min-width: 37px;
+  min-height: 36px;
+  padding: 7px;
+  font-size: 12px;
+  border-radius: 8px;
+  background: var(--hover);
+}
+.vps-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vps-line input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  background: var(--hover);
+  font-size: 16px;
+}
+.vps-line button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+@media (max-width: 760px) {
+  .vps-dialog {
+    position: fixed;
+    inset: auto;
+    top: var(--viewport-top, 0px);
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: var(--app-height, 100dvh);
+    border: 0;
+    border-radius: 0;
+  }
+  .vps-header {
+    padding: max(12px, env(safe-area-inset-top)) 14px 12px;
+  }
+  .vps-connect {
+    padding: 22px 18px max(18px, env(safe-area-inset-bottom));
+  }
+  .vps-toolbar {
+    padding: 7px 10px;
+  }
+  .vps-input-area {
+    padding-bottom: max(8px, calc(env(safe-area-inset-bottom) - var(--viewport-inset, 0px)));
+  }
+  .vps-header p {
+    max-width: 260px;
+  }
+}

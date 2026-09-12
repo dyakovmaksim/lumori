@@ -1,0 +1,8 @@
+[Unit]
+Description=Activate Lumori HTTPS when domain DNS is ready
+After=network-online.target docker.service luma.service
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/lumori-domain-activate
+TimeoutStartSec=300
+UMask=0077

@@ -1,0 +1,28 @@
+[Unit]
+Description=Luma private AI workspace preview
+After=network.target
+
+[Service]
+Type=simple
+User=luma
+Group=luma
+WorkingDirectory=/opt/luma
+ExecStart=/opt/luma/bin/node /opt/luma/dist-server/index.js
+Environment=NODE_ENV=production
+Environment=HOST=0.0.0.0
+Environment=PORT=8090
+Environment=DATA_DIR=/var/lib/luma
+Environment=APP_ORIGIN=http://193.233.126.148:8090
+EnvironmentFile=-/etc/luma.env
+StateDirectory=luma
+StateDirectoryMode=0700
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

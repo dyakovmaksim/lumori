@@ -1,0 +1,67 @@
+{
+  "name": "lumori",
+  "version": "2.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "concurrently -k \"tsx watch server/index.ts\" \"vite --host 127.0.0.1\"",
+    "build": "tsc --noEmit && vite build && esbuild server/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist-server/index.js",
+    "start": "node dist-server/index.js",
+    "test": "vitest run",
+    "check": "tsc --noEmit",
+    "format": "prettier --write src server shared tests *.json *.ts",
+    "format:check": "prettier --check src server shared tests *.json *.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Private web interface for the installed Codex CLI with ChatGPT authentication",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "katex": "^0.18.7",
+    "lucide-react": "^1.43.0",
+    "multer": "^2.3.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "ssh2": "^1.17.0",
+    "ws": "^8.21.3",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^22.20.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/ssh2": "^1.15.6",
+    "@types/supertest": "^7.2.1",
+    "@types/ws": "^8.18.1",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "esbuild": "^0.28.2",
+    "prettier": "^3.9.6",
+    "supertest": "^7.2.2",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
+  }
+}

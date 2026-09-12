@@ -1,0 +1,162 @@
+/* WebKit compatibility and touch performance; loaded after the visual theme. */
+/* Allow content to shrink through every grid/flex boundary. Wide code and tables
+   scroll locally; they must never determine the width of the conversation. */
+.workspace, .conversation-scroll, .composer-area, .messages, .markdown, .code-block {
+  min-width: 0;
+  max-width: 100%;
+}
+.messages, .welcome { flex-shrink: 0; }
+.topbar-right { flex-shrink: 0; }
+@media (max-width: 760px) {
+  /* Keep Safari focus scrolling inside the textarea/feed, not the document. */
+  html:has(.app), body:has(.app) { overflow: hidden; overscroll-behavior: none; }
+  body:has(.app) { position: fixed; inset: 0; }
+  html:has(.app), body:has(.app), #root, .app, .app .main { max-width: 100vw; overflow-x: hidden; }
+  .app { touch-action: pan-y; }
+  .app .sidebar, .app .sidebar-backdrop { touch-action: pan-y; }
+  /* The drawer must sit above the fixed model/temporary controls. */
+  .app .sidebar { z-index: 60; }
+  .app .sidebar-backdrop {
+    z-index: 55;
+    background: transparent;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  :root[data-theme='dark'] .app .sidebar-backdrop { background: rgb(0 0 0 / 42%); }
+  .app .main { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); min-height: 0; }
+  .app .workspace { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; min-height: 0; }
+  .app .composer-area { align-self: end; margin: 0 auto; padding-bottom: max(6px, calc(env(safe-area-inset-bottom) - var(--viewport-inset, 0px))); }
+  .app .composer-caption:not(.is-transcribing) { display: none; }
+  /* Keep model and temporary-chat controls in the top utility zone. The
+     composer stays focused on typing and sending on narrow screens. */
+  .app .composer-heading {
+    position: fixed;
+    top: calc(64px + env(safe-area-inset-top) + 7px);
+    left: max(14px, env(safe-area-inset-left));
+    right: max(14px, env(safe-area-inset-right));
+    z-index: 34;
+    margin: 0;
+    pointer-events: none;
+  }
+  .app .composer-heading > * {
+    pointer-events: auto;
+  }
+  .app .conversation-scroll {
+    padding-top: 48px;
+  }
+  .app .model-button {
+    max-width: min(190px, calc(100vw - 165px));
+    min-height: 34px;
+    padding: 6px 9px;
+    border-radius: 17px;
+    background: var(--surface);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .app .model-button > .model-spark { flex: 0 0 auto; }
+  .app .model-button > svg:last-child { flex: 0 0 auto; }
+  .app .temporary-toggle {
+    min-height: 34px;
+    width: auto;
+    min-width: 112px;
+    padding: 6px 10px;
+    justify-content: space-between;
+    gap: 5px;
+    border-radius: 17px;
+    box-shadow: var(--glass-shadow);
+  }
+  .app .temporary-toggle > span { display: inline; white-space: nowrap; }
+  .app .temporary-toggle .temporary-state { display: inline; }
+  .app .temporary-toggle .toggle-track { transform: scale(.86); transform-origin: center; }
+  /* The desktop menu is anchored above the composer. On mobile the controls
+     live at the top, so opening upward would put the options behind the
+     notch and outside the viewport. */
+  .app .model-menu {
+    top: calc(100% + 8px);
+    bottom: auto;
+    left: 0;
+    width: min(340px, calc(100vw - 28px));
+    max-height: calc(100dvh - 150px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+@media (max-width: 760px) {
+  :root[data-keyboard='true'] .app { min-height: 0; }
+  :root[data-keyboard='true'] .app .composer-area {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: max(0px, calc(var(--keyboard-offset, 0px) - env(safe-area-inset-bottom) - env(safe-area-inset-bottom)));
+    z-index: 45;
+    width: 100%;
+    padding-bottom: 6px;
+    background: var(--bg);
+  }
+  :root[data-keyboard='true'] .app .conversation-scroll { padding-bottom: 220px; }
+  :root[data-keyboard='true'] .app .topbar { height: 48px; }
+  :root[data-keyboard='true'] .app .composer-heading {
+    top: calc(48px + env(safe-area-inset-top) + 5px);
+  }
+}
+@media (display-mode: standalone) {
+  html, body, #root { min-height: 100%; background: var(--bg); overscroll-behavior: none; }
+  /* iOS reports a shorter visual viewport to a fixed body. Give the app's
+     containing block the large viewport too, otherwise the body clips the
+     composer at the top of the home-indicator area. */
+  body:has(.app) { position: absolute; inset: 0; height: 100lvh; min-height: 100lvh; }
+  .app { padding: 0; gap: 0; height: 100lvh; min-height: 100lvh; }
+  .sidebar { border-radius: 0; }
+  .login-page { padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
+}
+@media (max-width: 760px) {
+  .sidebar { padding-top: max(25px, env(safe-area-inset-top)); }
+  .topbar { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+  .composer-area { padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); }
+}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+button, input, textarea { -webkit-appearance: none; appearance: none; }
+input[type='checkbox'] { -webkit-appearance: auto; appearance: auto; }
+input, textarea { caret-color: var(--accent-strong); }
+button, summary { touch-action: manipulation; }
+.sidebar, .login-card { -webkit-backdrop-filter: var(--glass); }
+.composer { -webkit-backdrop-filter: blur(24px) saturate(140%); }
+.dropdown, .modal { -webkit-backdrop-filter: blur(28px); }
+.loop-front { -webkit-backdrop-filter: blur(3px); }
+.conversation-scroll, .chat-list, .modal, .composer textarea { overscroll-behavior-y: contain; }
+.conversation-scroll { overflow-anchor: none; }
+@media (max-width: 760px) {
+  input, textarea, select, .search-box input, .mode-select, .text-input { font-size: 16px; }
+  .mode-select { max-width: 126px; }
+  .sidebar { padding-bottom: env(safe-area-inset-bottom); }
+  .chat-list { overflow-x: hidden; touch-action: pan-y; }
+  .chat-row, .chat-item { min-width: 0; max-width: 100%; }
+  .chat-delete { display: none; }
+  .topbar { padding-top: env(safe-area-inset-top); height: calc(64px + env(safe-area-inset-top)); }
+  .composer {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    transition: border-color .18s ease;
+  }
+  .icon-button, .attach-button, .mic-button, .send-button { min-width: 44px; min-height: 44px; }
+  .chat-item { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+}
+@media (hover: none) {
+  button { transition: transform .12s ease, background-color .12s ease, color .12s ease; }
+  .prompt-card:hover, .new-chat:hover { transform: none; box-shadow: var(--glass-shadow); }
+  .prompt-card:active:not(:disabled), .new-chat:active:not(:disabled) { transform: scale(.98); }
+  .prompt-card { transition: transform .12s ease; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .sidebar, .composer, .login-card, .modal, .dropdown { background: var(--solid); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .sidebar, .composer, .login-card, .modal, .dropdown, .loop-front { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--solid); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
