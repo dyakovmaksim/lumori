@@ -68,7 +68,7 @@
 - `npm run check` and `npm run build` — passed.
 - `npm audit --omit=dev --audit-level=high` — 0 vulnerabilities.
 - Live HTTPS check: anonymous `/api/session` returns only the unauthenticated state; `X-Robots-Tag`, CSP, referrer and permissions policies are present; `robots.txt` disallows crawling.
-- Playwright: inspected the dedicated login page at desktop and 390 × 844 mobile widths. Screenshots: `previews/lumori-login-desktop.png`, `previews/lumori-login-mobile.png`.
+- Playwright: inspected the current login page and chat welcome screen at desktop and 390 × 844 mobile widths. Screenshots: `previews/lumori-current-login.png`, `previews/lumori-current-login-mobile.png`, `previews/lumori-current-chat-desktop.png`, `previews/lumori-current-chat-mobile.png`.
 # Office files, progress, temporary chats, and efficiency — 10 September 2026
 
 - `npm test` — 18 tests passed; includes verified `.xlsx` acceptance, rejection of a disguised Office file, and temporary-chat isolation from the history list.

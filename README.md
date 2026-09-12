@@ -1,42 +1,40 @@
 # Lumori
 
-Private, self-hosted AI workspace powered by the Codex App Server and ChatGPT authentication.
+Приватное self-hosted AI-пространство для программирования, учёбы, работы с документами и повседневных задач. Lumori работает через установленный на VPS Codex App Server и авторизацию ChatGPT — веб-приложению не нужен OpenAI API-ключ.
 
-Lumori gives a small trusted group a polished chat interface for coding, study, documents and everyday tasks. It runs on a VPS, keeps conversations separated by account, and does not require an OpenAI API key in the web application.
+## Возможности
 
-## Highlights
+- Постоянные диалоги Codex с переключением моделей и отдельной историей пользователей.
+- Прикрепление фото и файлов: PDF, Excel, Word, PowerPoint, CSV, JSON и исходный код.
+- Чтение вложений и скачивание файлов, созданных в чате.
+- Локальное распознавание русской и английской речи через faster-whisper на CPU.
+- Markdown, таблицы GFM, подсветка кода и читаемая отрисовка формул KaTeX.
+- Светлая и тёмная темы, отдельные акцентные цвета и адаптивный стеклянный интерфейс для iOS.
+- Временные чаты, удаление истории, индикаторы прогресса и лимитов.
+- Авторизация, защищённые cookie, ограничение частоты запросов и проверка владельца каждого чата.
 
-- Persistent Codex threads with model switching and per-user chat history.
-- Text, image and document attachments: PDF, Office, spreadsheets, presentations, CSV, JSON and source code.
-- Safe artifact links with downloads for files created in a conversation.
-- Local CPU speech recognition with faster-whisper for Russian and English.
-- Rendered Markdown, GFM tables, syntax-highlighted code and KaTeX mathematics.
-- Light/dark themes, independent accent colors and a responsive iOS-style glass interface.
-- Temporary chats, chat deletion, progress events and usage-limit indicators.
-- Private login page, secure cookies, rate limits, ownership checks and a restricted Codex workspace.
+## Скриншоты актуальной версии
 
-## Screenshots
-
-| Desktop | Mobile |
+| Рабочий стол | Телефон |
 | --- | --- |
-| ![Desktop dark](docs/previews/desktop-dark.png) | ![Mobile dark](docs/previews/mobile-dark.png) |
-| ![Desktop light](docs/previews/desktop-light.png) | ![Login mobile](docs/previews/lumori-login-mobile.png) |
+| ![Текущий чат на компьютере](docs/previews/lumori-current-chat-desktop.png) | ![Текущий чат на телефоне](docs/previews/lumori-current-chat-mobile.png) |
+| ![Текущий экран входа](docs/previews/lumori-current-login.png) | ![Экран входа на телефоне](docs/previews/lumori-current-login-mobile.png) |
 
-## Architecture
+## Архитектура
 
 ```text
-Browser ─ HTTPS ─ reverse proxy ─ Lumori (Node.js + SQLite)
+Браузер ─ HTTPS ─ reverse proxy ─ Lumori (Node.js + SQLite)
                                       │
-                                      ├─ private WebSocket ─ Codex App Server
-                                      ├─ per-chat workspaces and artifacts
-                                      └─ local faster-whisper process
+                                      ├─ приватный WebSocket ─ Codex App Server
+                                      ├─ рабочие папки чатов и артефакты
+                                      └─ локальный процесс faster-whisper
 ```
 
-The browser never receives the Codex bridge token or ChatGPT credentials. Codex runs in a restricted workspace with no arbitrary visitor access. Uploaded files are treated as data and are not trusted as instructions.
+Браузер не получает токен WebSocket-моста, ChatGPT-учётные данные или произвольный доступ к JSON-RPC. Codex работает в ограниченной рабочей папке. Вложенные файлы передаются как данные и не считаются инструкциями.
 
-## Local development
+## Локальный запуск
 
-Requirements: Node.js 24 and an authenticated Codex CLI.
+Нужны Node.js 24 и авторизованный Codex CLI.
 
 ```bash
 codex login
@@ -46,9 +44,9 @@ cp .env.example .env
 npm run dev
 ```
 
-Open `http://localhost:5173`. Configure a local password and session secret in `.env`; never commit that file.
+Откройте `http://localhost:5173`. В `.env` задайте локальный пароль и секрет сессии. Файл `.env` нельзя добавлять в Git.
 
-Useful checks:
+Проверки проекта:
 
 ```bash
 npm run check
@@ -56,25 +54,25 @@ npm test
 npm run build
 ```
 
-## VPS deployment
+## Деплой на VPS
 
-The repository includes systemd, reverse-proxy and deployment examples under `docs/deployment/`. The deployment script is intended for an already secured VPS with Codex authentication configured. It builds the client and server, copies the production files and restarts the web service.
+Примеры конфигурации systemd, reverse proxy и обновления находятся в `docs/deployment/`. Скрипт деплоя рассчитан на уже защищённый VPS с настроенной авторизацией Codex: он собирает клиент и сервер, копирует production-файлы и перезапускает веб-службу.
 
-Before deployment, configure the environment outside Git with a strong application password, a session secret, the Codex bridge token and the data directory. Keep the reverse proxy restricted to HTTPS and do not expose the Codex App Server publicly.
+Перед деплоем задайте вне Git сильный пароль приложения, секрет сессии, токен моста Codex и каталог данных. Reverse proxy должен работать только по HTTPS, а Codex App Server нельзя открывать в интернет.
 
-## Project structure
+## Структура проекта
 
-- `src/` — chat UI, themes, responsive layout, composer, Markdown and math rendering.
-- `server/` — authentication, SQLite storage, Codex bridge, artifacts, speech and limits.
-- `shared/` — types shared by the client and server.
-- `speech/` — optional local faster-whisper transcription.
-- `tests/` — server, security, terminal, artifact and rendering checks.
-- `docs/` — design notes, validation records, previews and deployment examples.
+- `src/` — интерфейс чата, темы, адаптивная вёрстка, composer, Markdown и математический рендеринг.
+- `server/` — авторизация, SQLite, мост Codex, артефакты, речь и лимиты.
+- `shared/` — типы, общие для клиента и сервера.
+- `speech/` — необязательное локальное распознавание через faster-whisper.
+- `tests/` — проверки сервера, безопасности, терминала, файлов и рендера.
+- `docs/` — дизайн, результаты валидации, скриншоты и примеры деплоя.
 
-## Privacy
+## Приватность
 
-Lumori is designed for a private trusted group. Keep the repository private, do not commit `.env`, databases, uploads, ChatGPT credentials, SSH keys, model weights or generated workspaces. Rotate session and bridge secrets if they are ever exposed.
+Lumori рассчитан на небольшую доверенную группу. Репозиторий должен оставаться приватным. Не добавляйте в Git `.env`, базы данных, загрузки, ChatGPT-данные, SSH-ключи, веса моделей и рабочие папки. При утечке секретов замените пароль приложения, секрет сессии и токен моста.
 
-## License
+## Лицензия
 
-Private project. All rights reserved unless the repository owner adds a separate license.
+Приватный проект. Все права защищены, если владелец репозитория отдельно не добавит лицензию.
