@@ -445,10 +445,16 @@ export default function App() {
   }, []);
   useEffect(() => {
     if (!session?.authenticated || !session.user) return;
-    const id = localRead(`lumori-chat-${session.user.id}`, '');
-    if (id) void openChat(id);
-    // Restore once after authentication, not on conversation updates.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // A fresh visit starts in a clean composer. Existing conversations remain
+    // available in the sidebar, but a previous chat must not reopen by itself.
+    forgetRememberedChat();
+    loadVersion.current++;
+    selectedId.current = null;
+    setChat(null);
+    setDraft('');
+    setMode('auto');
+    setNextTemporary(false);
+    setLoadingChat(false);
   }, [session?.authenticated, session?.user?.id]);
   function forgetRememberedChat() {
     if (!session?.user) return;
