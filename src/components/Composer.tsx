@@ -114,8 +114,8 @@ export default function Composer({
     if (!ready) return notify('Сначала настройте подключение и войдите в пространство.');
     if (uploadingRef.current || busy) return;
     const incoming = Array.from(list);
-    if (files.length + incoming.length > 4)
-      return notify('Можно прикрепить до 4 файлов за сообщение.');
+    if (files.length + incoming.length > 10)
+      return notify('Можно прикрепить до 10 файлов за сообщение.');
     uploadingRef.current = true;
     setUploading(true);
     try {
@@ -328,6 +328,7 @@ export default function Composer({
             onChange={(e) => setDraft(e.target.value)}
             rows={1}
             maxLength={32000}
+            onContextMenu={(e) => e.preventDefault()}
             onKeyDown={(e) => {
               if (
                 e.key === 'Enter' &&
@@ -352,7 +353,7 @@ export default function Composer({
             <button
               className="icon-button attach-button"
               aria-label="Прикрепить файлы"
-              title="Фото, PDF, Excel, Word, PowerPoint, текст и код · до 10 МБ"
+              title="Фото, PDF, Excel, Word, PowerPoint, текст и код · до 10 файлов, 10 МБ каждый"
               disabled={uploading || busy}
               onClick={() => input.current?.click()}
             >

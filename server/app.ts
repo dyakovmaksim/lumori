@@ -469,7 +469,7 @@ export function createApp(config: Config, suppliedAI?: AIProvider) {
     const body = z
       .object({
         text: z.string().trim().max(32000).default(''),
-        attachmentIds: z.array(z.string().uuid()).max(4).default([]),
+        attachmentIds: z.array(z.string().uuid()).max(10).default([]),
         retry: z.boolean().default(false),
       })
       .parse(req.body);
