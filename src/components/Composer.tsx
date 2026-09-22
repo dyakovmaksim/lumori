@@ -323,6 +323,12 @@ export default function Composer({
           <textarea
             ref={text}
             aria-label="Сообщение"
+            name="prompt"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="sentences"
+            spellCheck="true"
+            data-form-type="other"
             placeholder="Спросите, придумайте, создайте…"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
